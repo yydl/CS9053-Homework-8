@@ -9,7 +9,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 /**
- * Created by yossie on 4/1/17.
+ * Created by Joseph on 4/1/17.
  */
 public class LambdaWeightedSchedulerTest {
 
