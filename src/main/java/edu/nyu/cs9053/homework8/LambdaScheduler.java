@@ -10,6 +10,19 @@ import java.util.List;
  */
 public class LambdaScheduler extends AbstractScheduler {
 
+    /**
+     * Ensure none of the LambdaJobs are null.
+     * @return false if any job is null
+     */
+    private static boolean validateJobs(List<? extends LamdaJob> jobs) {
+        for (LamdaJob job : jobs) {
+            if (job == null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public LambdaScheduler(LambdaContainer lambdaContainer) {
         super(lambdaContainer);
     }
@@ -24,6 +37,10 @@ public class LambdaScheduler extends AbstractScheduler {
     public List<LamdaJob> schedule(List<? extends LamdaJob> jobs) {
         if (jobs == null) {
             throw new IllegalArgumentException("jobs may not be null");
+        }
+        
+        if (!validateJobs(jobs)) {
+            throw new IllegalArgumentException("all jobs must not be null");
         }
 
         List<LamdaJob> sortedJobsByFinishTime = sortJobsByFinishTime(jobs);
