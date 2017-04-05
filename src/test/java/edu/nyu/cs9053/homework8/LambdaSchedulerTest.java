@@ -37,9 +37,11 @@ public class LambdaSchedulerTest {
         assertTrue(jobsThatRan.contains(job1));
         assertTrue(jobsThatRan.contains(job2));
         assertTrue(jobsThatRan.contains(job4));
+        assertTrue(jobsThatRan.size() == 3);
 
         assertTrue(rejectedJobs.contains(job3));
         assertTrue(rejectedJobs.contains(job5));
+        assertTrue(rejectedJobs.size() == 2);
     }
 
 }

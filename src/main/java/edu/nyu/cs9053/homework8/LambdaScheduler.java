@@ -5,6 +5,8 @@ import java.util.List;
 
 /**
  * Created by Joseph on 3/30/17.
+ *
+ * Schedules jobs to maximize the number of jobs run.
  */
 public class LambdaScheduler extends AbstractScheduler {
 
@@ -13,8 +15,8 @@ public class LambdaScheduler extends AbstractScheduler {
     }
 
     /**
-     * Schedules the maximum of the given jobs with the constraint that no two jobs
-     * may overlap.
+     * Schedules a subset of the given jobs to be run. The maximum number of jobs are chosen such that
+     * no two jobs may overlap.
      * @param jobs a list of available LamdaJobs
      * @return a List of the jobs that were rejected
      */

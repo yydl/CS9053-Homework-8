@@ -5,11 +5,13 @@ import java.util.List;
 
 /**
  * Created by Joseph on 3/30/17.
+ *
+ * Schedules jobs to maximize the weight of the jobs that are run.
  */
 public class LambdaWeightedScheduler extends AbstractScheduler {
 
     /**
-     * Ensure none of the LambdaJobs are missing a price
+     * Ensure none of the LambdaJobs are missing a price.
      * @return false if any job is null or missing a price
      */
     private static boolean validateJobs(List<LamdaJob> jobs) {
@@ -59,7 +61,7 @@ public class LambdaWeightedScheduler extends AbstractScheduler {
     }
 
     /**
-     * Computes the memoized table (Dynamic Programming) that contains the solution for each level of recursion
+     * Computes the memoized table (Dynamic Programming) that contains the solution for each level of recursion.
      */
     private static List<Double> computeMemoizedTable(List<LamdaJob> jobs, List<Integer> largestCompatibleIndexes) {
         List<Double> memoizeTable = new ArrayList<>(jobs.size());
@@ -77,12 +79,17 @@ public class LambdaWeightedScheduler extends AbstractScheduler {
         return memoizeTable;
     }
 
+    /**
+     * Given a memoizedTable, backs-out the list of jobs that made up the solution.
+     * (Note how this method closely mirrors computeMemoizedTable above).
+    */
     private static List<LamdaJob> backOutSolution(List<Double> memoizedTable,
                                         List<LamdaJob> jobs,
-                                        List<Integer> largestCompatibleIndexes,
-                                        int i) {
+                                        List<Integer> largestCompatibleIndexes) {
         List<LamdaJob> result = new ArrayList<>(jobs.size());
-
+        
+        int i = jobs.size() - 1;
+        
         while (i >= 0) {
             LamdaJob job = jobs.get(i);
             int largestCompatibleIndex = largestCompatibleIndexes.get(i);
@@ -113,6 +120,12 @@ public class LambdaWeightedScheduler extends AbstractScheduler {
         super(lambdaContainer);
     }
 
+    /**
+     * Schedules a subset of the given jobs to be run. The maximum price of jobs are chosen such that
+     * no two jobs may overlap.
+     * @param jobs a list of available LamdaJobs
+     * @return a List of the jobs that were rejected
+     */
     @Override
     public List<LamdaJob> schedule(List<LamdaJob> jobs) {
         if (jobs == null) {
@@ -127,10 +140,9 @@ public class LambdaWeightedScheduler extends AbstractScheduler {
 
         List<Integer> largestCompatibleIndexes = computeLargestCompatibleIndexes(sortedJobsByFinishTime);
 
-        // memoizeTable holds intermediate results for the highest priced combination
         List<Double> memoizeTable = computeMemoizedTable(sortedJobsByFinishTime, largestCompatibleIndexes);
 
-        List<LamdaJob> optimalSolution = backOutSolution(memoizeTable, sortedJobsByFinishTime, largestCompatibleIndexes, jobs.size() - 1);
+        List<LamdaJob> optimalSolution = backOutSolution(memoizeTable, sortedJobsByFinishTime, largestCompatibleIndexes);
 
         for (LamdaJob job : optimalSolution) {
             sendJobToLambdaContainer(job);

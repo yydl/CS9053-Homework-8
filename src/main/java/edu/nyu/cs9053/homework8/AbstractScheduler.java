@@ -7,6 +7,8 @@ import java.util.List;
 
 /**
  * Created by Joseph on 4/2/17.
+ *
+ * Schedules jobs to run on a given container.
  */
 public abstract class AbstractScheduler implements Scheduler {
 

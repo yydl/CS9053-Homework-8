@@ -2,6 +2,8 @@ package edu.nyu.cs9053.homework8;
 
 /**
  * Created by Joseph on 3/30/17.
+ *
+ * A job that can be run on a LambdaContainer.
  */
 public class LamdaJob {
 
@@ -11,10 +13,21 @@ public class LamdaJob {
 
     private final Double price;
 
+    /**
+     * Construct a new LambdaJob without a price.
+     * @param startTime the starting time of the job (millis since epoch)
+     * @param finishTime the ending time of the job (millis since epoch)
+    */
     public LamdaJob(long startTime, long finishTime) {
         this(startTime, finishTime, null);
     }
 
+    /**
+     * Construct a new LambdaJob with given price.
+     * @param startTime the starting time of the job (millis since epoch)
+     * @param finishTime the ending time of the job (millis since epoch)
+     * @param price may be null if job does not have a price
+    */
     public LamdaJob(long startTime, long finishTime, Double price) {
         if (startTime < 0 || finishTime < 0 || finishTime < startTime) {
             throw new IllegalArgumentException("invalid time");

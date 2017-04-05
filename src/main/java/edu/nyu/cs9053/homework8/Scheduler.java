@@ -4,6 +4,8 @@ import java.util.List;
 
 /**
  * Created by Joseph on 3/30/17.
+ *
+ * Represents something which can schedule jobs.
  */
 public interface Scheduler {
 
