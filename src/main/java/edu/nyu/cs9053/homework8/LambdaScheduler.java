@@ -17,16 +17,16 @@ public class LambdaScheduler extends AbstractScheduler {
     /**
      * Schedules a subset of the given jobs to be run. The maximum number of jobs are chosen such that
      * no two jobs may overlap.
-     * @param jobs a list of available LamdaJobs
+     * @param jobs a list of LamdaJobs to run
      * @return a List of the jobs that were rejected
      */
     @Override
-    public List<LamdaJob> schedule(List<LamdaJob> jobs) {
+    public List<LamdaJob> schedule(List<? extends LamdaJob> jobs) {
         if (jobs == null) {
             throw new IllegalArgumentException("jobs may not be null");
         }
 
-        List<LamdaJob> sortedJobsByFinishTime = sortJobsByFinishTime(jobs);
+        List<? extends LamdaJob> sortedJobsByFinishTime = sortJobsByFinishTime(jobs);
 
         List<LamdaJob> rejectedJobs = new ArrayList<>(jobs.size());
 

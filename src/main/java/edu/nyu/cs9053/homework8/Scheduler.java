@@ -14,6 +14,6 @@ public interface Scheduler {
      * @param jobs a list of jobs
      * @return a list of the jobs that were rejected
      */
-    List<LamdaJob> schedule(List<LamdaJob> jobs);
+    List<LamdaJob> schedule(List<? extends LamdaJob> jobs);
 
 }

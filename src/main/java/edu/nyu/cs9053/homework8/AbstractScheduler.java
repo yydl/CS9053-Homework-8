@@ -17,7 +17,7 @@ public abstract class AbstractScheduler implements Scheduler {
      * @param jobs
      * @return a copy of the list - sorted
      */
-    protected static List<LamdaJob> sortJobsByStartTime(List<LamdaJob> jobs) {
+    protected static List<LamdaJob> sortJobsByStartTime(List<? extends LamdaJob> jobs) {
         if (jobs == null) {
             throw new IllegalArgumentException("jobs may not be null");
         }
@@ -40,7 +40,7 @@ public abstract class AbstractScheduler implements Scheduler {
      * @param jobs
      * @return a copy of the list - sorted
      */
-    protected static List<LamdaJob> sortJobsByFinishTime(List<LamdaJob> jobs) {
+    protected static List<LamdaJob> sortJobsByFinishTime(List<? extends LamdaJob> jobs) {
         if (jobs == null) {
             throw new IllegalArgumentException("jobs may not be null");
         }

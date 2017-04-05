@@ -14,7 +14,7 @@ public class LambdaWeightedScheduler extends AbstractScheduler {
      * Ensure none of the LambdaJobs are missing a price.
      * @return false if any job is null or missing a price
      */
-    private static boolean validateJobs(List<LamdaJob> jobs) {
+    private static boolean validateJobs(List<? extends LamdaJob> jobs) {
         for (LamdaJob job : jobs) {
             if (job == null || job.getPrice() == null) {
                 return false;
@@ -48,6 +48,7 @@ public class LambdaWeightedScheduler extends AbstractScheduler {
             else {
                 // we overlap! store the index of the last job
                 if (finishIndex == 0) {
+                    // there is no job to the left of index 0
                     result.add(0);
                 }
                 else {
@@ -127,7 +128,7 @@ public class LambdaWeightedScheduler extends AbstractScheduler {
      * @return a List of the jobs that were rejected
      */
     @Override
-    public List<LamdaJob> schedule(List<LamdaJob> jobs) {
+    public List<LamdaJob> schedule(List<? extends LamdaJob> jobs) {
         if (jobs == null) {
             throw new IllegalArgumentException("jobs may not be null");
         }
