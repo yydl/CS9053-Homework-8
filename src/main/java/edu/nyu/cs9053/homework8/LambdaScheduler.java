@@ -26,7 +26,7 @@ public class LambdaScheduler extends AbstractScheduler {
             throw new IllegalArgumentException("jobs may not be null");
         }
 
-        List<? extends LamdaJob> sortedJobsByFinishTime = sortJobsByFinishTime(jobs);
+        List<LamdaJob> sortedJobsByFinishTime = sortJobsByFinishTime(jobs);
 
         List<LamdaJob> rejectedJobs = new ArrayList<>(jobs.size());
 
